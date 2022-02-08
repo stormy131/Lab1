@@ -4,34 +4,56 @@ const {stdin: input, stdout:output} = require('process');
 const solve = require('./algorithm');
 
 const rl = readline.createInterface({input, output});
-const printOutput = (a, b, c) => {
-    console.log(`Equation is: (${a})*x^2 + (${b})*x + (${c})`);
 
-    const answer = solve(a, b, c);
+(async () => {
+    let args;
+
+    if(process.argv.length >= 3){
+        let data = (await fsp.readFile(process.argv[2]))
+            .toString()
+            .split('\n')[0]
+            .split(' ');
+
+        args = [...data.map(a => +a)];
+
+        args.forEach(arg => {
+            if(isNaN(arg)){
+                throw new Error('invalid argument type');
+            }
+        });
+    } else {
+        args = {
+          a: NaN,
+          b: NaN,
+          c: NaN
+        };
+
+        for(let [key, value] of Object.entries(args)){
+            while(true){
+                value = (await rl.questionAsync(key + ' = ')).trim();
+                if(value === '' || isNaN(+value)){
+                    console.log('Invalid argument type');
+                    continue;
+                }
+
+                value = +value;
+                break;
+            }
+
+            args[key] = value;
+        }
+
+        args = [...Object.values(args)];
+    }
+
+    console.log(`Equation is: (${args[0]})*x^2 + (${args[1]})*x + (${args[2]})`);
+    const answer = solve(...args);
     console.log(`${answer.size} roots was found`);
 
     let count = 0;
     answer.forEach(root => {
         console.log(`x${++count} = ${root}`);
-    })
+    });
 
     rl.close();
-};
-
-(async () => {
-    if(process.argv.length >= 3){
-        let data = (await fsp.readFile(process.argv[2]))
-            .toString()
-            .split('\n')[0]
-            .split(' ')
-
-        printOutput(...data);
-        return;
-    }
-
-    const a = await rl.questionAsync('a = ');
-    const b = await rl.questionAsync('b = ');
-    const c = await rl.questionAsync('c = ');
-
-    printOutput(a,b,c);
 })();
