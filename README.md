@@ -35,4 +35,4 @@ and after C there must be a newline. If argument has fraction part, the separato
 
     End
 
-REVERT COMMIT: 0962dec8e1796876718b293e5583c59888171099
+REVERT COMMIT: https://github.com/stormy131/Lab1/commit/0962dec8e1796876718b293e5583c59888171099
