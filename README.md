@@ -15,8 +15,7 @@ To start QES in interactive mode, run command:
     
     node solver.js
 
-Then you need to type arguments (A,B,C) of quadratic equation. If argument has fraction part, the separator must be . (dot).
-General form of equation:
+Then you need to type arguments (A,B,C) of quadratic equation. General form of equation:
 
     A*x^2 + B*x + C = 0
 
@@ -28,7 +27,7 @@ After file has been created, start the script and as an argument pass the path t
     node solver.js arguments.txt
 
 File must have specific format, if you expect the script to work correctly. The arguments must be separated with space 
-and after C there must be a newline. If argument has fraction part, the separator must be . (dot). The needed format is:
+and after C there must be a newline. The needed format is:
 
     Begining of the file:
     A B C
