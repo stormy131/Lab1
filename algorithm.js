@@ -5,10 +5,4 @@ const solve = (a, b, c) => {
     return new Set(D >= 0 ? [x1, x2] : null);
 };
 
-USELESS TEXT
-USELESS TEXT
-USELESS TEXT
-USELESS TEXT
-USELESS TEXT
-
 module.exports = solve;
