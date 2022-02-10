@@ -9,11 +9,15 @@ const rl = readline.createInterface({input, output});
     let args;
 
     if(process.argv.length >= 3){
-        let data = (await fsp.readFile(process.argv[2]))
-            .toString()
-            .split('\n')[0]
-            .split(' ');
+        let data;
 
+        try{
+            data = (await fsp.readFile(process.argv[2]));
+        } catch (e){
+            throw new Error('Path is incorrect');
+        }
+
+        data = data.toString().split('\n')[0].split(' ');
         args = [...data.map(a => +a)];
 
         args.forEach(arg => {
@@ -22,21 +26,16 @@ const rl = readline.createInterface({input, output});
             }
         });
     } else {
-        args = {
-          a: NaN,
-          b: NaN,
-          c: NaN
-        };
+        args = {a: NaN, b: NaN, c: NaN};
 
         for(let [key, value] of Object.entries(args)){
             while(true){
-                value = (await rl.questionAsync(key + ' = ')).trim();
-                if(value === '' || isNaN(+value)){
+                value = +(await rl.questionAsync(key + ' = ')).trim();
+                if(value === 0 || isNaN(value)){
                     console.log('Invalid argument type');
                     continue;
                 }
 
-                value = +value;
                 break;
             }
 
